@@ -1,179 +1,220 @@
 # Bonus Class Booker
 
-The **Bonus Class Booker** is a simple system designed to allow students to schedule additional classes on Fridays. The system allows students to select available slots, book a teacher, and receive notifications of confirmation and reminders. The coordinators manage the schedule and availability of teachers via a Google Sheet. 
+O **Bonus Class Booker** é um sistema desenvolvido para facilitar o agendamento de aulas extras às sextas-feiras por alunos, com base na disponibilidade de professores. Ele oferece uma interface amigável para os alunos visualizarem e reservarem horários disponíveis, além de fornecer notificações de confirmação e lembretes. Os coordenadores, por sua vez, gerenciam a disponibilidade dos professores e os agendamentos através de uma planilha integrada ao Google Sheets.
 
-## Features
+Este README detalha o propósito do projeto, suas funcionalidades, a estrutura do código, instruções de configuração e uso, além de informações adicionais como melhorias futuras e licença.
 
-- **Student Side:**
-  - View available slots based on teacher availability.
-  - Select a time slot and enter booking details.
-  - Receive booking confirmation and reminders via browser notifications.
-  
-- **Coordinator Side:**
-  - Manage teacher availability and time slots via Google Sheets.
-  - The system automatically tracks available slots based on Google Sheet data.
-  - Easily adjust teacher availability and time slots by adding/removing rows in the Google Sheet.
+## Índice
 
-## Tech Stack
-
-- **Frontend:** React.js
-- **Backend:** Node.js with Express
-- **Database:** Google Sheets (using Google Sheets API)
-- **Hosting:** Railway (for both backend and frontend)
+- [Funcionalidades](#funcionalidades)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Configuração e Instalação](#configuração-e-instalação)
+- [Como Funciona](#como-funciona)
+- [Notificações](#notificações)
+- [To-Do e Melhorias Futuras](#to-do-e-melhorias-futuras)
+- [Licença](#licença)
 
 ---
 
-## Project Structure
+## Funcionalidades
+
+O sistema foi projetado com funcionalidades específicas para dois tipos de usuários: **alunos** e **coordenadores**. Aqui está uma visão detalhada de cada uma:
+
+### Para Alunos
+- **Visualização de Horários Disponíveis:** Os alunos podem consultar os horários livres com base na disponibilidade dos professores, filtrados por modalidade (online ou presencial).
+- **Agendamento de Aulas:** Após selecionar um horário, o aluno preenche um formulário com informações como nome, livro, conteúdo a ser abordado, modalidade desejada e número de WhatsApp.
+- **Notificações:** O sistema envia confirmações de agendamento e lembretes automáticos via navegador.
+- **Escolha de Modalidade:** Os alunos podem optar por aulas online ou presenciais, e o sistema exibe apenas os horários compatíveis com a escolha.
+
+### Para Coordenadores
+- **Gestão de Disponibilidade:** Os coordenadores definem os horários disponíveis dos professores diretamente na planilha do Google Sheets.
+- **Gerenciamento de Agendamentos:** Podem visualizar e ajustar os agendamentos realizados pelos alunos na mesma planilha.
+- **Flexibilidade de Modalidade:** Cada slot de horário pode ser configurado como online ("O"), presencial ("P") ou ambas (deixando em branco).
+
+---
+
+## Estrutura do Projeto
+
+O projeto é dividido em duas partes principais: **backend** e **frontend**, cada uma com sua própria estrutura de pastas e arquivos. Abaixo está a organização detalhada do repositório:
 
 ```
 bonus-class-booker/
-├── backend/  
-│   ├── controllers/           # Functions for interacting with Google Sheets API
-│   ├── routes/                # Routes for API requests (GET, POST)
-│   ├── services/              # Service for managing Google Sheets API
-│   ├── .env                   # Environment variables (Google API credentials)
-│   ├── app.js                 # Express setup and middlewares
-│   └── server.js              # Server entry point
+├── backend/                    # Contém o código do servidor (Node.js com Express)
+│   ├── controllers/           # Lógica para interagir com a planilha do Google Sheets
+│   │   └── sheetController.js # Controlador com funções para leitura e escrita na planilha
+│   ├── routes/                # Definição das rotas da API
+│   │   └── bonusClassRoutes.js # Rotas específicas para consulta de disponibilidade e agendamento
+│   ├── services/              # Serviços reutilizáveis para integração com o Google Sheets
+│   │   └── googleSheetsService.js # Funções para autenticação e operações na API do Google Sheets
+│   ├── .env                   # Arquivo de variáveis de ambiente (não versionado)
+│   ├── app.js                 # Configuração do servidor Express e middlewares
+│   ├── server.js              # Ponto de entrada que inicializa o servidor
+│   └── package.json           # Dependências e scripts do backend
 │
-├── frontend/
-│   ├── public/                # Public assets (favicon, etc.)
-│   ├── src/
-│   │   ├── components/        # React components
-│   │   ├── services/          # Service to call backend API
-│   │   ├── App.js             # Main App component
-│   │   ├── index.js           # React entry point
-│   │   └── styles.css         # Global styles
-│   ├── .env                   # Environment variables for frontend (optional)
-│   └── package.json           # Frontend dependencies and scripts
+├── frontend/                  # Contém a interface do usuário (React.js)
+│   ├── public/                # Arquivos estáticos acessíveis publicamente
+│   │   ├── index.html         # Template HTML principal
+│   │   └── favicon.ico        # Ícone da aplicação
+│   ├── src/                   # Código-fonte do frontend
+│   │   ├── components/        # Componentes React reutilizáveis
+│   │   │   ├── AvailableSlots.js # Exibe os horários disponíveis em uma lista ou tabela
+│   │   │   ├── BookingForm.js   # Formulário para o aluno realizar o agendamento
+│   │   │   └── Notification.js  # Componente para exibir notificações no navegador
+│   │   ├── services/          # Funções para comunicação com o backend
+│   │   │   └── apiService.js  # Requisições HTTP para as rotas do backend
+│   │   ├── App.js             # Componente raiz da aplicação React
+│   │   ├── index.js           # Ponto de entrada que renderiza o React no DOM
+│   │   └── styles.css         # Estilos globais da aplicação
+│   ├── .env                   # Variáveis de ambiente do frontend (opcional, não versionado)
+│   └── package.json           # Dependências e scripts do frontend
 │
-└── README.md                  # Project documentation (this file)
+└── README.md                  # Este arquivo de documentação
 ```
+
+### Detalhamento dos Arquivos
+
+#### Backend
+- **`controllers/sheetController.js`:** Contém funções como `getAvailableSlots` (para listar horários disponíveis) e `bookSlot` (para registrar um agendamento). Essas funções utilizam o `googleSheetsService.js` para interagir com a planilha.
+- **`routes/bonusClassRoutes.js`:** Define as rotas da API, como `GET /bonus-class/available` (retorna horários disponíveis) e `POST /bonus-class/book` (processa agendamentos).
+- **`services/googleSheetsService.js`:** Implementa a autenticação com a API do Google Sheets e métodos como `readSheet` e `writeSheet` para manipular os dados da planilha.
+- **`app.js`:** Configura o Express, adiciona middlewares (ex.: `body-parser` para processar JSON) e registra as rotas.
+- **`server.js`:** Inicializa o servidor na porta especificada (padrão: 5000).
+- **`.env`:** Armazena credenciais sensíveis, como `GOOGLE_SHEET_ID` e `GOOGLE_API_KEY`.
+
+#### Frontend
+- **`components/AvailableSlots.js`:** Renderiza uma lista ou tabela de horários disponíveis, permitindo ao aluno selecionar um slot.
+- **`components/BookingForm.js`:** Exibe um formulário com campos para nome, livro, conteúdo, modalidade e WhatsApp, enviando os dados ao backend via `apiService.js`.
+- **`components/Notification.js`:** Gerencia notificações no navegador usando a API de Notificações do HTML5.
+- **`services/apiService.js`:** Contém funções como `fetchAvailableSlots` e `submitBooking` para fazer requisições ao backend.
+- **`App.js`:** Componente principal que coordena os outros componentes e mantém o estado da aplicação.
+- **`index.js`:** Configura o React e renderiza o `App.js` no elemento raiz do `index.html`.
 
 ---
 
-## Setup and Installation
+## Configuração e Instalação
+
+Para executar o **Bonus Class Booker** localmente, siga os passos abaixo. O processo é dividido em configuração do backend e do frontend.
+
+### Pré-requisitos
+- **Node.js** (versão 16 ou superior recomendada) e **npm** instalados.
+- Uma conta no **Google Cloud** com a API do Google Sheets habilitada e credenciais geradas.
+- Uma planilha no **Google Sheets** configurada com as seguintes colunas:
+  - `TEACHER` (nome do professor)
+  - `HORARIO` (ex.: "14:00 - 14:30")
+  - `MODALIDADE` ("O" para online, "P" para presencial, ou em branco para ambas)
+  - `ALUNO` (nome do aluno, em branco se disponível)
+  - `LIVRO` (livro informado pelo aluno)
+  - `CONTEUDO` (conteúdo solicitado)
+  - `WHATSAPP` (número do aluno)
 
 ### Backend
 
-1. **Clone the repository:**
+1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/your-username/bonus-class-booker.git
+   git clone https://github.com/seu-usuario/bonus-class-booker.git
    cd bonus-class-booker/backend
    ```
 
-2. **Install dependencies:**
+2. **Instale as dependências:**
 
    ```bash
    npm install
    ```
 
-3. **Set up environment variables:**
-   Create a `.env` file in the `backend/` directory and add your Google Sheets API credentials. You can follow the [Google Sheets API quickstart guide](https://developers.google.com/sheets/api/quickstart/nodejs) to set up the credentials and get the `GOOGLE_SHEET_ID` and `GOOGLE_API_KEY`.
+   Isso instalará pacotes como `express`, `googleapis` (para integração com Google Sheets) e outros listados no `package.json`.
 
-   Example `.env` file:
+3. **Configure as variáveis de ambiente:**
+   - Crie um arquivo `.env` na pasta `backend/` com o seguinte conteúdo:
+     ```
+     GOOGLE_SHEET_ID=seu-id-da-planilha
+     GOOGLE_API_KEY=sua-chave-da-api
+     PORT=5000
+     ```
+   - Para obter as credenciais, siga o [guia oficial da API do Google Sheets](https://developers.google.com/sheets/api/quickstart/nodejs).
 
-   ```
-   GOOGLE_SHEET_ID=your-google-sheet-id
-   GOOGLE_API_KEY=your-google-api-key
-   ```
-
-4. **Run the server locally:**
+4. **Inicie o servidor:**
 
    ```bash
    npm start
    ```
 
-   The backend will run on `http://localhost:5000`.
+   O servidor estará disponível em `http://localhost:5000`.
 
 ### Frontend
 
-1. **Navigate to the frontend directory:**
+1. **Navegue até a pasta do frontend:**
 
    ```bash
-   cd frontend
+   cd ../frontend
    ```
 
-2. **Install dependencies:**
+2. **Instale as dependências:**
 
    ```bash
    npm install
    ```
-3. **Run the development server:**
+
+   Isso instalará o `react`, `react-dom`, `axios` (para chamadas HTTP) e outras dependências.
+
+3. **Inicie o servidor de desenvolvimento:**
 
    ```bash
    npm start
    ```
 
-   The frontend will run on `http://localhost:3000`.
+   A aplicação React será aberta automaticamente em `http://localhost:3000`.
 
-### Deploying to Railway (or other hosting services)
-
-1. **Create a Railway account** if you don't have one: [https://railway.app/](https://railway.app/)
-
-2. **Deploy the backend:**
-   - Push the backend code to GitHub (if not already done).
-   - Go to Railway, create a new project, and select GitHub to deploy the backend.
-   - Add your `.env` variables to Railway's environment settings for your project.
-
-3. **Deploy the frontend:**
-   - Similarly, push the frontend code to GitHub and deploy on Railway.
-
-   Once deployed, the backend and frontend will be live with URLs provided by Railway.
+### Deploy
+- **Backend:** Hospede em plataformas como **Railway**, **Heroku** ou **Vercel**. Configure as variáveis de ambiente no painel da plataforma.
+- **Frontend:** Pode ser hospedado no **Netlify**, **Vercel** ou similares. Certifique-se de ajustar a URL do backend no `apiService.js` para apontar para o servidor deployado.
 
 ---
 
-## How It Works
+## Como Funciona
 
-### **Google Sheets as the Database**
+### Google Sheets como Banco de Dados
+A planilha do Google Sheets serve como o "banco de dados" do sistema. Cada linha representa um slot de horário, e as colunas armazenam informações específicas. O backend lê e escreve diretamente na planilha via API.
 
-1. **Google Sheets Structure:**
+#### Exemplo de Planilha
+| TEACHER    | HORARIO       | MODALIDADE | ALUNO     | LIVRO        | CONTEUDO         | WHATSAPP     |
+|------------|---------------|------------|-----------|--------------|------------------|--------------|
+| Prof. Ana  | 14:00 - 14:30 | O          |           |              |                  |              |
+| Prof. João | 15:00 - 15:30 | P          | Maria     | English 1    | Grammar          | 11987654321  |
+| Prof. Ana  | 16:00 - 16:30 |            |           |              |                  |              |
 
-   The Google Sheet is used to store teacher availability and bookings. Each row in the sheet represents an individual booking slot. The system reads available slots based on the number of rows corresponding to that time.
+- Slots sem `ALUNO` são considerados disponíveis.
+- `MODALIDADE` em branco indica que o slot aceita tanto online quanto presencial.
 
-   Example layout:
+### Backend (Node.js com Express)
+- **`GET /bonus-class/available`:** Lê a planilha, filtra os slots disponíveis (sem aluno) e retorna uma lista JSON com base na modalidade solicitada pelo aluno.
+- **`POST /bonus-class/book`:** Recebe os dados do formulário, verifica se o aluno já tem um agendamento (limpando-o se necessário), e atualiza a planilha com o novo agendamento.
 
-   | Teacher   | Time    | Student Name | Booked? | WhatsApp    | Status       |
-   |-----------|---------|--------------|---------|-------------|--------------|
-   | Teacher A | 14:00   |              |         | 999999999   | Available    |
-   | Teacher B | 14:00   |              |         | 999999999   | Available    |
-   | Teacher C | 14:00   |              |         | 999999999   | Available    |
-   | Teacher A | 14:30   |              |         | 999999999   | Available    |
-
-2. **Backend (Node.js)**:
-   - The backend communicates with Google Sheets using the [Google Sheets API](https://developers.google.com/sheets/api). 
-   - The `GET /bonus-class/available` API reads the sheet, filters available slots, and returns the number of open spots for each time slot.
-   - The `POST /bonus-class/book` API updates the sheet with the student's information and marks the time slot as "booked."
-
-3. **Frontend (React.js)**:
-   - Students can see available slots and book a time by providing their details.
-   - The frontend communicates with the backend through REST API calls.
-   - After booking, the student gets a browser notification confirming the class and a reminder the day before and 2 hours prior.
+### Frontend (React.js)
+- O aluno seleciona a modalidade no início.
+- O componente `AvailableSlots.js` faz uma chamada ao backend para exibir os horários disponíveis.
+- Após escolher um slot, o `BookingForm.js` coleta os dados e envia ao backend via POST.
+- O `Notification.js` exibe mensagens ao usuário após o agendamento.
 
 ---
 
-## Notifications
-
-1. **Booking Confirmation:**
-   - When a student books a class, a browser notification is sent confirming the class.
-   - The message includes the time, teacher, and the policy of a $20 fine for cancellations or no-shows on the day of the class.
-
-2. **Reminders:**
-   - A reminder notification will be sent the day before the class and again 2 hours prior to the class start time.
+## Notificações
+- **Confirmação:** Após o agendamento, uma notificação no navegador exibe detalhes como horário, modalidade e a política de multa ($20 por cancelamento ou falta).
+- **Lembretes:** 
+  - Um dia antes da aula (24 horas).
+  - Duas horas antes do horário agendado.
+- As notificações utilizam a API de Notificações do navegador e requerem permissão do usuário.
 
 ---
 
-## To-Do and Future Improvements
-
-- Add a login system for students (optional).
-- Add the ability for coordinators to edit the sheet directly from the admin interface (e.g., via a web interface).
-- Improve error handling and validation on the frontend.
-- Implement a payment integration for the fine (if applicable).
-- Add a calendar view for better schedule management.
+## To-Do e Melhorias Futuras
+- **Autenticação:** Implementar login para alunos, garantindo que apenas usuários autorizados façam agendamentos.
+- **Interface para Coordenadores:** Criar um painel web para gerenciar a planilha sem depender do Google Sheets diretamente.
+- **Validação Avançada:** Adicionar verificações mais robustas no frontend (ex.: formato de WhatsApp).
+- **Pagamento de Multa:** Integrar um sistema como Stripe ou PagSeguro para processar multas por cancelamentos.
+- **Visualização de Calendário:** Substituir a lista de horários por um calendário interativo.
 
 ---
 
-## License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
+## Licença
+Este projeto está licenciado sob a **Licença MIT**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
