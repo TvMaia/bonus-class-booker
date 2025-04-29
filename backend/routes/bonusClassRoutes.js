@@ -16,12 +16,12 @@ router.get('/available', async (req, res) => {
 
 router.post('/book', async (req, res) => {
   try {
-    const { rowIndex, studentName, book, content, whatsapp } = req.body;
+    const { horario, modality, studentName, book, content, whatsapp } = req.body;
     console.log('Dados recebidos para agendamento:', req.body);
-    if (!rowIndex || !studentName) {
-      throw new Error('rowIndex ou studentName ausente');
+    if (!horario || !modality || !studentName) {
+      throw new Error('horario, modality ou studentName ausente');
     }
-    await bookSlot({ rowIndex, studentName, book, content, whatsapp });
+    await bookSlot({ horario, modality, studentName, book, content, whatsapp });
     res.json({ message: 'Booking successful' });
   } catch (error) {
     console.error('Erro detalhado no agendamento:', error);
