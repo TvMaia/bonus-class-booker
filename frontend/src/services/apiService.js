@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/bonus-class',
+  baseURL: '/api/bonus-class',
 });
 
 export const getAvailableSlots = (modality) => {
