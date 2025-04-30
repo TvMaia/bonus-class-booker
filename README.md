@@ -139,8 +139,6 @@ Para executar o **Bonus Class Booker** localmente, siga os passos abaixo. O proc
    npm start
    ```
 
-   O servidor estará disponível em `http://localhost:5000`.
-
 ### Frontend
 
 1. **Navegue até a pasta do frontend:**
