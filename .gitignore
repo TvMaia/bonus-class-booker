@@ -1,3 +1,44 @@
+# Dependências do Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Arquivos de build do Next.js
+.next/
+out/
+build/
+
+# Arquivos de ambiente (chaves sensíveis)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Arquivos de cache
+.cache/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Arquivos de IDE
+.vscode/
+.idea/
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.swp
+
+# Vercel
+.vercel/
+
 # Node.js
 node_modules/
 npm-debug.log

@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans&display=swap');
+
+body {
+  background-color: #2e3090;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.school-logo {
+  width: 150px;
+  height: auto;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+select,
+input {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: all 1.5s ease;
+}
+
+select:focus,
+select:hover,
+input:focus,
+input:hover {
+  outline: none;
+  border-color: #23cbd2;
+}
+
+button {
+  background: linear-gradient(90deg, #23cbd2, #2e3090);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease;
+  margin: 5px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.nav-button {
+  background: #ea7124;
+  padding: 8px;
+  font-size: 18px;
+}
+
+.step {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.step-enter {
+  opacity: 1;
+}
+
+.check-animation {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.warning-card {
+  background-color: #ea7124;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.warning-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.calendar-prompt {
+  font-size: 16px;
+  margin-top: 15px;
+  line-height: 1.4;
+}
+
+.calendar-button {
+  background: #bcd42f;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.calendar-button:hover {
+  background: linear-gradient(to bottom, #bcd42f, #8a9b0f);
+}
+
+.confirmation {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .school-logo {
+    width: 120px;
+  }
+  .card, .confirmation {
+    padding: 20px;
+    max-width: 90%;
+  }
+  h1 {
+    font-size: 24px;
+  }
+}@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans&display=swap');
+
+body {
+  background-color: #2e3090;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.school-logo {
+  width: 150px;
+  height: auto;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+select,
+input {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: all 1.5s ease;
+}
+
+select:focus,
+select:hover,
+input:focus,
+input:hover {
+  outline: none;
+  border-color: #23cbd2;
+}
+
+button {
+  background: linear-gradient(90deg, #23cbd2, #2e3090);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease;
+  margin: 5px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.nav-button {
+  background: #ea7124;
+  padding: 8px;
+  font-size: 18px;
+}
+
+.step {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.step-enter {
+  opacity: 1;
+}
+
+.check-animation {
+  width: 80px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.warning-card {
+  background-color: #ea7124;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.warning-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.calendar-prompt {
+  font-size: 16px;
+  margin-top: 15px;
+  line-height: 1.4;
+}
+
+.calendar-button {
+  background: #bcd42f;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.calendar-button:hover {
+  background: linear-gradient(to bottom, #bcd42f, #8a9b0f);
+}
+
+.confirmation {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .school-logo {
+    width: 120px;
+  }
+  .card, .confirmation {
+    padding: 20px;
+    max-width: 90%;
+  }
+  h1 {
+    font-size: 24px;
+  }
+}
