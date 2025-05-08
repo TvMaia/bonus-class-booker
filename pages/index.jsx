@@ -25,7 +25,7 @@ export default function Home() {
       </header>
       <main>
         <div className="card">
-          <h1>BONUS CLASS</h1>
+          <h1>AULA BÔNUS</h1>
           {step === 1 && (
             <div className="step step-enter">
               <label>Escolha a modalidade:</label>

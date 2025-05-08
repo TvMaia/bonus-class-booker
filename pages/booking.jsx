@@ -69,7 +69,7 @@ export default function Booking({ modality, selectedHorario, onBack }) {
     if (book) text += `Livro: ${book}\n`;
     if (content) text += `Conteúdo: ${content}\n`;
     text += `WhatsApp: ${whatsapp}\n`;
-    text += `ATENÇÃO: A coordenadora fecha a agenda na quinta-feira à noite. Caso queira cancelar a aula, entrar em contato pelo nosso WhatsApp antes do fechamento, caso cancele ou falte após esse prazo, será cobrado o valor de R$ 20,00.`;
+    text += `ATENÇÃO: A agenda fica aberta de sábado até quinta-feira às 20:00. Caso cancele ou falte após esse prazo, será cobrado o valor de R$ 20,00.`;
     return text;
   };
 
@@ -209,7 +209,8 @@ export default function Booking({ modality, selectedHorario, onBack }) {
           {book && <p><strong>Livro:</strong> {book}</p>}
           {content && <p><strong>Conteúdo:</strong> {content}</p>}
           <p><strong>WhatsApp:</strong> {whatsapp}</p>
-          <p><strong>Atenção:</strong> A coordenadora fecha a agenda na quinta-feira à noite. Caso queira cancelar a aula, entrar em contato pelo nosso WhatsApp antes do fechamento, caso cancele ou falte após esse prazo, será cobrado o valor de R$ 20,00.</p>
+          <p><strong>Atenção:</strong> A agenda fica aberta de sábado até quinta-feira às 20:00.
+          Caso cancele ou falte após esse prazo, será cobrado o valor de R$ 20,00.</p>
           <div className="navigation">
             <button onClick={back} className="nav-button">Voltar</button>
             <button onClick={handleConfirm} className="nav-button">Confirmar</button>
@@ -225,12 +226,11 @@ export default function Booking({ modality, selectedHorario, onBack }) {
           <p>Agendado com sucesso!</p>
           <div className="warning-card">
             <p className="warning-text">
-              ATENÇÃO: A coordenadora fecha a agenda na quinta-feira à noite.
-              Caso queira cancelar a aula, entrar em contato pelo nosso
-              WhatsApp antes do fechamento, caso cancele ou falte após esse
-              prazo, será cobrado o valor de R$ 20,00.
+              ATENÇÃO: A agenda fica aberta de sábado até quinta-feira às 20:00.
+              Caso cancele ou falte após esse prazo, será cobrado o valor de R$ 20,00.
             </p>
           </div>
+          <p>Cancelamento deverá ser feito através do Whatsapp ou na recepção.</p>
           <p className="calendar-prompt">
             Não queremos que esqueça, clique no botão para marcar a aula na sua
             agenda Google.
