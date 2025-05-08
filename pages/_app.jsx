@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { Icons, ToastContainer } from 'react-toastify';
 import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }) {
@@ -10,6 +10,7 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/school-logo.png" />
       </Head>
       <Component {...pageProps} />
+      
       <ToastContainer />
     </>
   );

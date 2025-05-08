@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import AvailableSlotsGrid from '../components/AvailableSlotsGrid';
 import Booking from '../pages/booking';
+import { LottiePlayer } from 'react-toastify';
+import { FloatingWhatsApp } from 'react-floating-whatsapp'
+import Avatar from 'public/logo-do-whats.png'
+
+
 
 export default function Home() {
   const [step, setStep] = useState(1);
@@ -64,7 +69,27 @@ export default function Home() {
             />
           )}
         </div>
+        
+        
       </main>
+
+      <FloatingWhatsApp
+      
+        phoneNumber="+5544999660761"
+        accountName="InFlux Maringá"
+        avatar="/logo-do-whats.png"
+        statusMessage="Responderemos o mais breve possível."
+        chatMessage="Olá, como vai? Alguma dúvida quanto à aula bônus?"
+        placeholder="Escreva aqui sua dúvida..."
+        messageDelay= "2"
+      />
+
+      
+    
     </div>
+
   );
+
+  
+  
 }
