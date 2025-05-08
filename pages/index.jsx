@@ -79,7 +79,7 @@ export default function Home() {
         accountName="InFlux Maringá"
         avatar="/logo-do-whats.png"
         statusMessage="Responderemos o mais breve possível."
-        chatMessage="Olá, como vai? Alguma dúvida quanto à aula bônus?"
+        chatMessage="Olá, como podemos ajudar?"
         placeholder="Escreva aqui sua dúvida..."
         messageDelay= "2"
       />
