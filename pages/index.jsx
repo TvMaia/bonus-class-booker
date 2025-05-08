@@ -75,7 +75,7 @@ export default function Home() {
 
       <FloatingWhatsApp
       
-        phoneNumber="+5544999660761"
+        phoneNumber="+5544984111785"
         accountName="InFlux Maringá"
         avatar="/logo-do-whats.png"
         statusMessage="Responderemos o mais breve possível."
