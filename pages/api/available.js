@@ -1,4 +1,4 @@
-import { google } from 'googleapis';
+import { google } from 'googleapis'; // isso importa a biblioteca do google, que esta dentro do "googleapis"
 
 console.log('Client Email from env:', process.env.GOOGLE_SHEET_CLIENT_EMAIL);
 console.log('Spreadsheet ID from env:', process.env.GOOGLE_SHEET_ID);
