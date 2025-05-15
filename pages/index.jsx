@@ -50,7 +50,9 @@ export default function Home() {
               <div className="navigation">
                 <button onClick={nextStep} className="nav-button">→</button>
               </div>
+              <p>*Válido apenas para alunos ativos*</p>
             </div>
+            
           )}
           {step === 2 && (
             <div className="step step-enter">
@@ -68,6 +70,7 @@ export default function Home() {
               onBack={prevStep}
             />
           )}
+          
         </div>
         
         

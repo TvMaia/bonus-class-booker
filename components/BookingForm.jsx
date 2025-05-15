@@ -81,10 +81,6 @@ export default function BookingForm({ modality, selectedHorario }) {
             <option>Book 3</option>
             <option>Book 4</option>
             <option>Book 5</option>
-            <option>Camino 1</option>
-            <option>Camino 2</option>
-            <option>Camino 3</option>
-            <option>Camino 4</option>
             <option>Kids (Fluxie and Friends e Juniors)</option>
           </select>
           <button onClick={next} className="nav-button">→</button>
